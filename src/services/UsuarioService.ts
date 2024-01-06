@@ -29,6 +29,11 @@ export class UsuarioService {
             return undefined
         }
 
+        if(data.password){
+            let pass = MD5(data.password);
+            data.password = pass.toString();
+        }
+
         const response = await this.usuarioRepository.updateUser(user, data);
 
         return response;
