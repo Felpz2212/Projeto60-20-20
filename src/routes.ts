@@ -13,3 +13,4 @@ router.get("/teste", (request: Request, response: Response) => {
 })
 
 router.post("/users", usuarioController.createUser);
+router.put("/users", usuarioController.updateUser);
