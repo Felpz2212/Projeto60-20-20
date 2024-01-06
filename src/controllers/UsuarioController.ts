@@ -1,17 +1,31 @@
-import { UsuarioCreateDTO } from "../DTO/UsuarioDTO/UsuarioCreateDTO";
-import { UsuarioService } from "../services/UsuarioService";
+import { Request, Response } from 'express'
+import { UsuarioService } from '../services/UsuarioService'
 
+export class UsuarioController {
+  
+    userService: UsuarioService;
 
-
-export class UsuarioController{
-
-    usuarioService: UsuarioService;
-
-    constructor(usuarioService = new UsuarioService()){
-        this.usuarioService = usuarioService;
+    constructor(
+        userService = new UsuarioService()
+    ){
+        this.userService = userService
     }
 
-    createUser(usuarioDTO: UsuarioCreateDTO){
 
+    createUser = async (request: Request, response: Response) => {
+        const body = request.body;
+
+        if(!body.name || !body.email || !body.password){
+            return response.status(400).json({
+                message: 'Bad Request! Todos os parametros são necessários'
+            })
+        }
+
+        let name = body.name;
+        let email = body.email;
+        let password = body.password;
+
+        const result = await this.userService.createUser(name, email, password);
+        return response.status(201).json(result);
     }
 }
