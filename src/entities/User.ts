@@ -1,5 +1,6 @@
 import { randomUUID } from "crypto";
-import { Column, Entity, PrimaryColumn, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, OneToMany, PrimaryColumn, PrimaryGeneratedColumn } from "typeorm";
+import { Movimentacao } from "./Movimentacao";
 
 @Entity('users')
 export class User{
@@ -15,6 +16,9 @@ export class User{
 
     @Column({nullable: false})
     password: string
+
+    @OneToMany(() => User, (usuario) => usuario.movimentacoes)
+    movimentacoes!: Movimentacao[];
 
     constructor(
         name: string,

@@ -14,14 +14,14 @@ export class UsuarioService {
     }
 
 
-    createUser = async (nome: string, email: string, password: string) => {
+    createUser = async (nome: string, email: string, password: string): Promise<User | undefined> => {
         let pass = MD5(password);
         const user = new User(nome, email, pass.toString());
         
         return await this.usuarioRepository.createUser(user);
     }
 
-    updateUser = async (user_id: string, data: UsuarioEditDTO) => {
+    updateUser = async (user_id: string, data: UsuarioEditDTO): Promise<User | undefined> => {
 
         const user = await this.usuarioRepository.findById(user_id);
 
