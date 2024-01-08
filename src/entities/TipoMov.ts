@@ -15,12 +15,11 @@ export class TipoMov{
     desc: string
 
     @OneToMany(() => Movimentacao, (movimentacao) => movimentacao.tipo)
-    movimentacoes: Movimentacao[]
+    movimentacoes!: Movimentacao[]
 
     constructor(name: string, desc: string){
         this.name = name;
         this.desc = desc;
         this.tipo_id = randomUUID();
-        this.movimentacoes = []
     }
 }
