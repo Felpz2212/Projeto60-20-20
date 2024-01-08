@@ -1,4 +1,4 @@
-import { Column, Entity, ManyToOne, PrimaryColumn } from "typeorm";
+import { Column, Entity, JoinColumn, JoinTable, ManyToOne, PrimaryColumn } from "typeorm";
 import { TipoMov } from "./TipoMov";
 import { User } from "./User";
 import { randomUUID } from "crypto";
@@ -14,23 +14,33 @@ export class Movimentacao{
     name: string;
 
     @Column({nullable: false})
-    desc: string;
+    descricao: string;
 
     @Column({nullable: false})
     valor: number;
 
-    @ManyToOne(() => User, (user) => user.movimentacoes)
+    @Column()
+    usuario_id: string
+
+    @ManyToOne(() => User)
+    @JoinColumn({name: 'usuario_id'})
     usuario: User;
 
-    @ManyToOne(() => TipoMov, (tipo) => tipo.movimentacoes)
-    tipo: TipoMov;
+    @Column()
+    tipo_id: string;
+
+    @ManyToOne(() => TipoMov)
+    @JoinColumn({ name: 'tipo_id' })
+    tipo!: TipoMov;
 
     constructor(name: string, desc: string, valor: number, usuario: User, tipo: TipoMov){
         this.name = name;
-        this.desc = desc;
+        this.descricao = desc;
         this.valor = valor;
         this.usuario = usuario,
         this.tipo = tipo;
+        this.tipo_id = tipo?.tipo_id;
+        this.usuario_id = usuario?.user_id;
         this.movimentacao_id = randomUUID();
     }
 }

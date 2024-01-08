@@ -2,7 +2,7 @@ import { randomUUID } from "crypto";
 import { Column, Entity, OneToMany, PrimaryColumn } from "typeorm";
 import { Movimentacao } from "./Movimentacao";
 
-@Entity('tipo_mov')
+@Entity('tipo')
 export class TipoMov{
     
     @PrimaryColumn()
@@ -12,14 +12,11 @@ export class TipoMov{
     name: string;
 
     @Column({nullable: false})
-    desc: string
-
-    @OneToMany(() => Movimentacao, (movimentacao) => movimentacao.tipo)
-    movimentacoes!: Movimentacao[]
+    descricao: string
 
     constructor(name: string, desc: string){
         this.name = name;
-        this.desc = desc;
+        this.descricao = desc;
         this.tipo_id = randomUUID();
     }
 }

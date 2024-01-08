@@ -20,9 +20,6 @@ export class User{
     @Column({nullable: false})
     renda_mensal: number
 
-    @OneToMany(() => User, (usuario) => usuario.movimentacoes)
-    movimentacoes!: Movimentacao[];
-
     constructor(
         name: string,
         email: string,
