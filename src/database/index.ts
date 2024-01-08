@@ -1,5 +1,7 @@
 import { DataSource } from "typeorm";
 import { User } from "../entities/User";
+import { Movimentacao } from "../entities/Movimentacao";
+import { TipoMov } from "../entities/TipoMov";
 
 export const AppDataSource = new DataSource({
     type: 'sqlite',
@@ -8,7 +10,9 @@ export const AppDataSource = new DataSource({
         './src/database/migrations/*.ts'
     ],
     entities: [
-        User
+        User,
+        Movimentacao,
+        TipoMov
     ]
 })
 

@@ -17,17 +17,22 @@ export class User{
     @Column({nullable: false})
     password: string
 
+    @Column({nullable: false})
+    renda_mensal: number
+
     @OneToMany(() => User, (usuario) => usuario.movimentacoes)
     movimentacoes!: Movimentacao[];
 
     constructor(
         name: string,
         email: string,
-        password: string
+        password: string,
+        renda_mensal: number
     ){
         this.user_id = randomUUID();
         this.name = name;
         this.email = email;
         this.password = password
+        this.renda_mensal = renda_mensal
     }
 }

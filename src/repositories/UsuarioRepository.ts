@@ -35,4 +35,9 @@ export class UsuarioRepository{
 
         return user;
     }
+
+    findByEmail = async (email: string): Promise<User | null> => {
+
+        return await this.manager.findOneBy(User, {email})
+    }
 }

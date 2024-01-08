@@ -8,7 +8,8 @@ export class User1704647257061 implements MigrationInterface {
             user_id VARCHAR PRIMARY KEY,
           name VARCHAR NOT NULL,
           email VARCHAR NOT NULL,
-          password VARCHAR NOT NULL
+          password VARCHAR NOT NULL,
+          renda_mensal DOUBLE NOT NULL
         )
         `)
     }

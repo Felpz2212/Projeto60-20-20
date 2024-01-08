@@ -14,10 +14,15 @@ export class UsuarioService {
     }
 
 
-    createUser = async (nome: string, email: string, password: string): Promise<User | undefined> => {
-        let pass = MD5(password);
-        const user = new User(nome, email, pass.toString());
+    createUser = async (nome: string, email: string, password: string, renda_mensal: number): Promise<User | undefined> => {
+        const user_db = await this.usuarioRepository.findByEmail(email);
         
+        if(user_db){
+            return undefined;
+        }
+        let pass = MD5(password);
+        const user = new User(nome, email, pass.toString(), renda_mensal);
+
         return await this.usuarioRepository.createUser(user);
     }
 
@@ -38,4 +43,9 @@ export class UsuarioService {
 
         return response;
     };
+
+    findById = async (user_id: string): Promise<User | undefined> => {
+
+        return await this.usuarioRepository.findById(user_id);
+    }
 }
