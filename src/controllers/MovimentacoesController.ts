@@ -1,6 +1,8 @@
 import { Request, Response } from "express";
 import { MovimentacoesService } from "../services/MovimentacoesService";
 import { Movimentacao } from "../entities/Movimentacao";
+import { isNumber } from "util";
+import { isNumberObject } from "util/types";
 
 export class MovimentacoesController {
 
@@ -30,6 +32,12 @@ export class MovimentacoesController {
         try{
 
         const {name, descricao, valor, usuario_id, tipo_id} = request.body;
+        
+        if(!isNumber(valor)){
+            return response.status(400).json({
+                message: 'Bad Request! Valor deve ser do tipo number'
+            })
+        }
 
         if(!name || !descricao || !valor || !usuario_id || !tipo_id){
             return response.status(400).json({

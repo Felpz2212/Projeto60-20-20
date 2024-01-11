@@ -16,6 +16,12 @@ export class LoginController {
         try {
             const { email, password } = request.body;
 
+            if(!email || !password){
+                return response.status(400).json({
+                    message: "Bad Request! e-mail e senha devem ser enviados"
+                })
+            }
+
             const result = await this.loginService.login(email, password);
 
             if (!result) {
