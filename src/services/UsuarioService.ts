@@ -14,19 +14,23 @@ export class UsuarioService {
     }
 
 
-    createUser = async (nome: string, email: string, password: string, renda_mensal: number): Promise<User | undefined> => {
+    createUser = async (nome: string, email: string, password: string, renda_mensal: number): Promise<Partial<User> | undefined> => {
         const user_db = await this.usuarioRepository.findByEmail(email);
         
         if(user_db){
             return undefined;
         }
         let pass = MD5(password);
-        const user = new User(nome, email, pass.toString(), renda_mensal);
+        let user = new User(nome, email, pass.toString(), renda_mensal);
 
-        return await this.usuarioRepository.createUser(user);
+        user = await this.usuarioRepository.createUser(user) as User;
+
+        const {password: _ , ...userData} = user
+
+        return userData;
     }
 
-    updateUser = async (user_id: string, data: UsuarioEditDTO): Promise<User | undefined> => {
+    updateUser = async (user_id: string, data: UsuarioEditDTO): Promise<Partial<User> | undefined> => {
 
         const user = await this.usuarioRepository.findById(user_id);
 
@@ -41,7 +45,9 @@ export class UsuarioService {
 
         const response = await this.usuarioRepository.updateUser(user, data);
 
-        return response;
+        const { password: _, ...userData } = response as User;
+        
+        return userData;
     };
 
     findById = async (user_id: string): Promise<User | undefined> => {

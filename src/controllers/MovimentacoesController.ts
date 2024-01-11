@@ -26,4 +26,26 @@ export class MovimentacoesController {
         }
     }
 
+    create = async (request: Request, response: Response) => {
+        try{
+
+        const {name, descricao, valor, usuario_id, tipo_id} = request.body;
+
+        if(!name || !descricao || !valor || !usuario_id || !tipo_id){
+            return response.status(400).json({
+                message: 'Bad Request! Todos os parâmetros são necessários'
+            })
+        }
+
+        const result = await this.movimentacoesService.create(name, descricao, valor, usuario_id, tipo_id);
+
+        return response.status(200).json(result);
+
+        }catch(err){
+            return response.status(500).json({
+                message: 'Um erro inesperado aconteceu entre em contato com um administrador'
+            })
+        }
+    }
+
 }

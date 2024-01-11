@@ -18,4 +18,9 @@ export class MovimentacoesRepository{
         return await this.manager.find(Movimentacao);
     }
 
+
+    create = async (movimentacao: Movimentacao): Promise<Movimentacao | undefined> => {
+
+        return await this.manager.save(movimentacao);
+    }
 }

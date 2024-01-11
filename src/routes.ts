@@ -22,6 +22,7 @@ router.get("/users/:user_id", usuarioController.findUserById);
 
 //Movimentações
 router.get("/movimentacoes", movimentacoesController.getAllMovimentacoes);
+router.post("/movimentacoes", movimentacoesController.create)
 
 //Login
 router.post("/login", loginController.login);
